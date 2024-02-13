@@ -14,16 +14,20 @@ const Navbar = () => {
         setNav(!nav);
     }
   const handlerFunction =  async () => {
+    if(!window.ethereum){
+      alert("You don't have a metamask wallet")
+    }
     if(address){
 
       setAccount(address.slice(0, 5) + "..." + address.slice(-3))
     }else{
       const wallet = await connect(metamaskConfig);
+      if(wallet===undefined){
+        alert("You don't have a metamask wallet")
+      }
       setAccount(address)
-      console.log(wallet)
+      console.log(address)
     }
-
-
       
   };
   return (

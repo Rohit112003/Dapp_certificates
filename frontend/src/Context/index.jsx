@@ -1,6 +1,6 @@
 import React, { useContext, createContext } from 'react';
 
-import { useAddress, useContract, useConnect, useContractWrite } from '@thirdweb-dev/react';
+import { useAddress, useContract, useConnect, useContractWrite, useContractRead,useContractEvents } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 
@@ -12,6 +12,16 @@ export const StateContextProvider = ({ children }) => {
 
   const address = useAddress();
   const connect = useConnect();
+
+  const getUserData = async (_id) => {
+    try {
+      const { data, isLoading } = useContractRead(contract, "getData", [_id])
+        return data;
+    } catch (err) {
+        console.error("Error fetching user data:", err);
+        return null;
+    }
+}
 
   const publishCertificate = async(form) =>{
     try{
@@ -31,6 +41,28 @@ export const StateContextProvider = ({ children }) => {
       console.log(err)
     }
   }
+  const getEventsData = async () => {
+    try {
+      const { data: events } =  useContractEvents(contract, "CertificateIssued");
+      // const eventArray = events.map(event => ({
+      //   birthId: event.birthId,
+      //   dob: event.dob,
+      //   name: event.name,
+      //   fatherName: event.fatherName,
+      //   motherName: event.motherName,
+      //   sex: event.sex
+      // }));
+      return events;
+    } catch (err) {
+      console.error("Error fetching events data:", err);
+      return null;
+    }
+  }
+  
+
+
+ 
+
 
 
   return (
@@ -39,12 +71,9 @@ export const StateContextProvider = ({ children }) => {
         address,
         contract,
         connect,
-        issueBirthCertificate:publishCertificate
-        // createCampaign: publishCampaign,
-        // getCampaigns,
-        // getUserCampaigns,
-        // donate,
-        // getDonations
+        issueBirthCertificate:publishCertificate,
+        getUserData,
+        getEventsData
       }}
     >
       {children}

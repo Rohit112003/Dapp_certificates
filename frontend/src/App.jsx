@@ -8,6 +8,7 @@ import PanServices from './components/PanServices'
 import Footer from './components/Footer'
 import BirthDetail from './pages/BirthDetail'
 import DetailPage from './pages/DetailPage'
+import CheckDetail from './pages/CheckDetail'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
     <Route path='/checkWork' element={<CheckWork/>}/>
     <Route path='/birthDetail' element={<BirthDetail/>}/>
     <Route path='/detail-page' element={<DetailPage/>}/>
+    <Route path='/checkDetail' element={<CheckDetail/>}/>
     </Routes>
     <PanServices/>
       <Footer/>

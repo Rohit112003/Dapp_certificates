@@ -18,6 +18,7 @@
     "@mui/material": "^5.15.7",
     "@thirdweb-dev/react": "^4.4.7",
     "@thirdweb-dev/sdk": "^4.0.34",
+    "dotenv": "^16.4.1",
     "email": "^0.2.6",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
